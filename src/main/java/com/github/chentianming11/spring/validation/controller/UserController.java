@@ -17,10 +17,17 @@ import javax.validation.constraints.Min;
 public class UserController {
 
     @PostMapping("/save")
-    public Result saveUser(@RequestBody @Validated UserDTO userDTO) {
+    public Result saveUser(@RequestBody @Validated(UserDTO.Save.class) UserDTO userDTO) {
         // 校验通过，才会执行业务逻辑处理
         return Result.ok();
     }
+
+    @PostMapping("/update")
+    public Result updateUser(@RequestBody @Validated(UserDTO.Update.class) UserDTO userDTO) {
+        // 校验通过，才会执行业务逻辑处理
+        return Result.ok();
+    }
+
 
     // 路径变量
     @GetMapping("{userId}")
