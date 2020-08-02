@@ -1,5 +1,6 @@
 package com.github.chentianming11.spring.validation.base;
 
+import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,6 +35,13 @@ public class CommonExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Result handleConstraintViolationException(ConstraintViolationException ex) {
+        return Result.fail(BusinessCode.参数校验失败, ex.getMessage());
+    }
+
+    @ExceptionHandler({NotReadablePropertyException.class})
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Result handleNotReadablePropertyException(NotReadablePropertyException ex) {
         return Result.fail(BusinessCode.参数校验失败, ex.getMessage());
     }
 }

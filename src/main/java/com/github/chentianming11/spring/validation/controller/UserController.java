@@ -1,12 +1,17 @@
 package com.github.chentianming11.spring.validation.controller;
 
 import com.github.chentianming11.spring.validation.base.Result;
+import com.github.chentianming11.spring.validation.base.Validation.ValidationList;
 import com.github.chentianming11.spring.validation.pojo.dto.UserDTO;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * @author 陈添明
@@ -16,8 +21,34 @@ import javax.validation.constraints.Min;
 @Validated
 public class UserController {
 
+    @Autowired
+    private javax.validation.Validator globalValidator;
+
+    // 编程式校验
+    @PostMapping("/saveWithCodingValidate")
+    public Result saveWithCodingValidate(@RequestBody UserDTO userDTO) {
+        Set<ConstraintViolation<UserDTO>> validate = globalValidator.validate(userDTO, UserDTO.Save.class);
+        // 如果校验通过，validate为空；否则，validate包含未校验通过项
+        if (validate.isEmpty()) {
+            // 校验通过，才会执行业务逻辑处理
+
+        } else {
+            for (ConstraintViolation<UserDTO> userDTOConstraintViolation : validate) {
+                // 校验失败，做其它逻辑
+                System.out.println(userDTOConstraintViolation);
+            }
+        }
+        return Result.ok();
+    }
+
     @PostMapping("/save")
     public Result saveUser(@RequestBody @Validated(UserDTO.Save.class) UserDTO userDTO) {
+        // 校验通过，才会执行业务逻辑处理
+        return Result.ok();
+    }
+
+    @PostMapping("/saveList")
+    public Result saveList(@RequestBody @Validated(UserDTO.Save.class) ValidationList<UserDTO> userList) {
         // 校验通过，才会执行业务逻辑处理
         return Result.ok();
     }
@@ -36,19 +67,19 @@ public class UserController {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(userId);
         userDTO.setAccount("11111111111111111");
-        userDTO.setUserName("xixi111111111111xxi");
+        userDTO.setUserName("xixi");
         userDTO.setAccount("11111111111111111");
         return Result.ok(userDTO);
     }
 
     // 查询参数
     @GetMapping("getByAccount")
-    public Result getByAccount(@Length(min = 8) String  account) {
+    public Result getByAccount(@Length(min = 6, max = 20) @NotNull String account) {
         // 校验通过，才会执行业务逻辑处理
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(10000000000000003L);
         userDTO.setAccount(account);
-        userDTO.setUserName("xixi111111111111xxi");
+        userDTO.setUserName("xixi");
         userDTO.setAccount("11111111111111111");
         return Result.ok(userDTO);
     }
