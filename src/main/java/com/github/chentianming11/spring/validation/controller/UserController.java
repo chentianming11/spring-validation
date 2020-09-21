@@ -2,6 +2,7 @@ package com.github.chentianming11.spring.validation.controller;
 
 import com.github.chentianming11.spring.validation.base.Result;
 import com.github.chentianming11.spring.validation.base.Validation.ValidationList;
+import com.github.chentianming11.spring.validation.http.HttpTestAPI;
 import com.github.chentianming11.spring.validation.pojo.dto.UserDTO;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class UserController {
 
     @Autowired
     private javax.validation.Validator globalValidator;
+
+    @Autowired
+    private HttpTestAPI httpTestAPI;
 
     // 编程式校验
     @PostMapping("/saveWithCodingValidate")
@@ -82,5 +86,12 @@ public class UserController {
         userDTO.setUserName("xixi");
         userDTO.setAccount("11111111111111111");
         return Result.ok(userDTO);
+    }
+
+    @GetMapping("/httpTest")
+    public Result httpTest() {
+        Result<UserDTO> account123 = httpTestAPI.getByAccount("account123");
+        System.out.println(account123);
+        return Result.ok(account123);
     }
 }
