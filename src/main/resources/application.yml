@@ -1,0 +1,27 @@
+retrofit:
+  # \u542F\u7528\u65E5\u5FD7\u6253\u5370
+  enable-log: true
+  # \u8FDE\u63A5\u6C60\u914D\u7F6E
+  pool:
+    test1:
+      max-idle-connections: 3
+      keep-alive-second: 100
+    test2:
+      max-idle-connections: 5
+      keep-alive-second: 50
+  # \u7981\u7528void\u8FD4\u56DE\u503C\u7C7B\u578B
+  disable-void-return-type: false
+  # \u65E5\u5FD7\u6253\u5370\u62E6\u622A\u5668
+  logging-interceptor: com.github.lianjiatech.retrofit.spring.boot.interceptor.DefaultLoggingInterceptor
+  # \u8BF7\u6C42\u91CD\u8BD5\u62E6\u622A\u5668
+  retry-interceptor: com.github.lianjiatech.retrofit.spring.boot.retry.DefaultRetryInterceptor
+  # \u5168\u5C40\u8F6C\u6362\u5668\u5DE5\u5382
+  global-converter-factories:
+    - retrofit2.converter.jackson.JacksonConverterFactory
+  # \u5168\u5C40\u8C03\u7528\u9002\u914D\u5668\u5DE5\u5382
+  global-call-adapter-factories:
+    - com.github.lianjiatech.retrofit.spring.boot.core.BodyCallAdapterFactory
+    - com.github.lianjiatech.retrofit.spring.boot.core.ResponseCallAdapterFactory
+  enable-degrade: true
+  degrade-type: sentinel
+  resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser

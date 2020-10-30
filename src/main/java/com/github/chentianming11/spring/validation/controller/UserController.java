@@ -94,4 +94,20 @@ public class UserController {
         System.out.println(account123);
         return Result.ok(account123);
     }
+
+    @GetMapping("/throw404Exception")
+    public Result throw404Exception() {
+        Result<UserDTO> account123 = null;
+        try {
+            account123 = httpTestAPI.throw404Exception("account123");
+        } catch (Throwable e) {
+            while (true) {
+                if (e != null) {
+                    System.out.println(e.getClass());
+                    e = e.getCause();
+                }
+            }
+        }
+        return Result.ok(account123);
+    }
 }

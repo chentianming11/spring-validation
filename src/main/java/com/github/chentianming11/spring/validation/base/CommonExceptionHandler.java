@@ -1,5 +1,6 @@
 package com.github.chentianming11.spring.validation.base;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import javax.validation.ConstraintViolationException;
  * @author 陈添明
  */
 @RestControllerAdvice
+@Slf4j
 public class CommonExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
@@ -43,5 +45,14 @@ public class CommonExceptionHandler {
     @ResponseBody
     public Result handleNotReadablePropertyException(NotReadablePropertyException ex) {
         return Result.fail(BusinessCode.参数校验失败, ex.getMessage());
+    }
+
+
+    @ExceptionHandler({Exception.class})
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Result handleException(Exception ex) {
+        log.error("未知系统错误", ex);
+        return Result.fail(BusinessCode.未知系统错误, ex.getMessage());
     }
 }

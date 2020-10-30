@@ -14,4 +14,8 @@ public interface HttpTestAPI {
 
     @GET("getByAccount")
     Result<UserDTO> getByAccount(@Query("account") String account);
+
+    @GET("getByAccount/notExist")
+    Result<UserDTO> throw404Exception(@Query("account") String account);
+
 }
