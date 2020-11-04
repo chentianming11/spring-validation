@@ -25,7 +25,7 @@ public class DegradeController {
         Random random = new Random(System.currentTimeMillis());
         int i = random.nextInt(1_000);
         Thread.sleep(i);
-        return Result.ok();
+        return Result.ok(i);
     }
 
 
@@ -34,7 +34,7 @@ public class DegradeController {
         Random random = new Random(System.currentTimeMillis());
         int i = random.nextInt(2_000);
         Thread.sleep(i);
-        return Result.ok();
+        return Result.ok(i);
     }
 
     @GetMapping("/test3")
@@ -42,26 +42,26 @@ public class DegradeController {
         Random random = new Random(System.currentTimeMillis());
         int i = random.nextInt(3_000);
         Thread.sleep(i);
-        return Result.ok();
+        return Result.ok(i);
     }
 
 
     @GetMapping("/test/execute")
     public Result testExecute() throws InterruptedException {
-        httpDegradeApi.test();
-        return Result.ok();
+        Result<Integer> test = httpDegradeApi.test();
+        return Result.ok(test);
     }
 
     @GetMapping("/test2/execute")
     public Result test2Execute() throws InterruptedException {
-        httpDegradeApi.test2();
-        return Result.ok();
+        Result<Integer> integerResult = httpDegradeApi.test2();
+        return Result.ok(integerResult);
     }
 
     @GetMapping("/test3/execute")
     public Result test3Execute() throws InterruptedException {
-        httpDegradeApi.test3();
-        return Result.ok();
+        Result<Integer> integerResult = httpDegradeApi.test3();
+        return Result.ok(integerResult);
     }
 
 

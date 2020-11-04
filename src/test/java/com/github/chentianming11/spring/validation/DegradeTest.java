@@ -22,8 +22,10 @@ public class DegradeTest {
                 .url("http://dora.dev.lianjia.com:8080/api/degrade/test/execute")
                 .build();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             Response response = httpClient.newCall(request).execute();
+            String string = response.body().string();
+            System.out.println(string);
         }
 
     }
