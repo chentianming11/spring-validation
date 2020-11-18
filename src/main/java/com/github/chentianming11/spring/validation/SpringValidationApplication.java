@@ -1,6 +1,5 @@
 package com.github.chentianming11.spring.validation;
 
-import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitScan;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +10,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 @SpringBootApplication
-@RetrofitScan("com.github.chentianming11.spring.validation.**")
 public class SpringValidationApplication {
 
 	public static void main(String[] args) {
