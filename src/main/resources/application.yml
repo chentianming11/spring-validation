@@ -25,3 +25,5 @@ retrofit:
   enable-degrade: true
   degrade-type: sentinel
   resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
+
+
