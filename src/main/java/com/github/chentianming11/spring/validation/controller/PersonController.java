@@ -1,13 +1,17 @@
 package com.github.chentianming11.spring.validation.controller;
 
 import com.github.chentianming11.spring.validation.base.Result;
+import com.github.chentianming11.spring.validation.pojo.Person;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 陈添明
@@ -15,67 +19,29 @@ import javax.validation.constraints.*;
 @RestController
 @RequestMapping("/api/person")
 @Validated
+@Api(tags = "Person管理")
 public class PersonController {
 
 
-    @Data
-    public static class SavePerson {
 
-        private Long id;
-
-        @NotNull
-        @Size(min = 2, max = 10)
-        private String name;
-
-        @NotNull
-        @Max(200)
-        private Integer age;
-
-        @Pattern(regexp = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$")
-        private String email;
-
-    }
-
+    @ApiOperation("保存Person")
     @PostMapping("savePerson")
-    public Result savePerson(@RequestBody @Valid SavePerson savePerson) {
-        return Result.ok(savePerson);
-    }
-
-
-    @Data
-    public static class UpdatePerson {
-
-        @NotNull
-        @Min(1000)
-        @Max(10000000)
-        private Long id;
-
-        @Size(min = 2, max = 10)
-        private String name;
-
-        @Max(200)
-        private Integer age;
-
-        @Pattern(regexp = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$")
-        private String email;
-
-    }
-
-    @PostMapping("updatePerson")
-    public Result savePerson(@RequestBody @Valid UpdatePerson updatePerson) {
-        return Result.ok(updatePerson);
+    public Result<Person> savePerson(@RequestBody @Valid Person person) {
+        return Result.ok(person);
     }
 
 
 
+    @ApiOperation("查询person")
     @GetMapping("queryPerson")
-    public Result queryPerson(@ApiParam(name = "用户id", example = "10") @NotNull @Min(1000) @Max(10000000) Long id,
-                              @ApiParam(name = "姓名", example = "哈哈") @NotNull @Size(min = 2, max = 10) String name,
+    public Result<List<Person>> queryPerson(@ApiParam(name = "用户id") @NotNull @Min(1000) @Max(10000000) Long id,
+                              @ApiParam(name = "姓名") @NotNull @Size(min = 2, max = 10) String name,
                               @Max(200) Integer age,
                               @Pattern(regexp = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$") String email) {
+        List<Person> list = new ArrayList<>();
+        list.add(new Person().setAge(10).setEmail("xxxxx").setId(1L).setName("哈哈"));
 
-
-        return Result.ok();
+        return Result.ok(list);
     }
 
 

@@ -27,3 +27,8 @@ retrofit:
   resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
 
 
+#spring:
+#  application:
+#    name: jy-helicarrier-api
+#  profiles:
+#    active: local
