@@ -15,11 +15,8 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("Person实体类")
-public class Person {
-
-    @ApiModelProperty("用户id")
-    private Long id;
+@ApiModel("保存用户DTO类")
+public class SavePersonDTO {
 
     @ApiModelProperty("姓名")
     @NotNull
