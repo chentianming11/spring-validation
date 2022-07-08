@@ -12,6 +12,8 @@ import javax.validation.ValidatorFactory;
 @SpringBootApplication
 public class SpringValidationApplication {
 
+	// test代码
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringValidationApplication.class, args);
 	}
